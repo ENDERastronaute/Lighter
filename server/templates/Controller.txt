@@ -1,0 +1,17 @@
+<?php
+
+namespace App\Controllers;
+
+use Model\Response;
+
+class {classname} extends Controller
+{
+    protected static $fields = [
+        '' => []
+    ];
+
+    public static function show()
+    {
+        return view('');
+    }
+}

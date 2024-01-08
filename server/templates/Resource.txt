@@ -1,0 +1,46 @@
+<?php
+
+namespace App\Controllers;
+
+use Repository\{repositoryname};
+
+class {classname} extends Controller
+{
+
+    public static function show()
+    {
+        return view('');
+    }
+
+    public static function create() {
+        ${shortrepositoryname} = new {repositoryname}();
+
+        ${shortrepositoryname}->save_data([
+            '' => $_POST[''],
+        ]);
+
+        return view('');
+    }
+
+    public static function edit() {
+        ${shortrepositoryname} = new {repositoryname}();
+
+        $val = json_decode(file_get_contents('php://input'), true);
+
+        ${shortrepositoryname}->edit([
+            '' => $val[''],
+        ]);
+
+        return view('');
+    }
+
+    public static function delete() {
+        ${shortrepositoryname} = new {repositoryname}();
+
+        $val = json_decode(file_get_contents('php://input'), true);
+
+        ${shortrepositoryname}->delete_data($val['']);
+
+        return view('');
+    }
+}

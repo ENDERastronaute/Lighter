@@ -1,0 +1,41 @@
+<?php
+    namespace Repository;
+    use Database\Db;
+    use Model\Response;
+
+    class {classname} extends Repository
+    {
+        protected $table = '';
+        protected $name = '';
+
+        protected $attributes = [
+            '' => '',
+        ];
+    
+        protected $attributes_labels = [
+            '' => '',
+        ];
+
+        public function __construct()
+        {
+            $this->load_data();
+            parent::__construct($this->attributes, $this->attributes_labels, $this->table, $this->name);
+        }
+
+        public function load_data()
+        {
+        }
+
+        public function save_data($data)
+        {
+        }
+
+        public function delete_data($id) {
+            parent::delete($id, $this);
+        }
+
+        public function edit($data)
+        {
+        }
+    }
+?>
