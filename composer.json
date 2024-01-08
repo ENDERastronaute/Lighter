@@ -1,0 +1,22 @@
+{
+    "name": "ender/projet",
+    "require": {
+        "twbs/bootstrap": "5.3.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Server\\Router\\": "server/router",
+            "Server\\Environment\\": "server/environment",
+            "Server\\Auth\\": "server/auth",
+            "Util\\": "util/",
+            "Database\\": "database/",
+            "Repository\\": "repository/",
+            "Model\\": "models/",
+            "Routes\\": "routes/"
+        },
+        "files": [
+            "server/environment/Setup.php"
+        ]
+    }
+}

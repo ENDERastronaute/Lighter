@@ -1,2 +1,0 @@
-# Lighter
-Light php framework

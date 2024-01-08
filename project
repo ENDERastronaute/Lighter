@@ -1,0 +1,39 @@
+<?php
+
+use Util\Maker;
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+$command = $argv[1];
+
+$publicDir = __DIR__ . '/public';
+
+switch ($command) {
+    case 'start':
+        echo "Starting...";
+        exec("composer dump-autoload");
+        echo "\033c";
+        exec("php -S $argv[2] -t \"$publicDir\"");
+        break;
+
+    case 'create:repository':
+        $name = $argv[2];
+        Maker::createRepository($name);
+        break;
+
+    case 'create:controller':
+        $name = $argv[2];
+
+        if ($argv[3] === '--resource')
+        {
+            Maker::createResource($name);
+            break;
+        }
+
+        Maker::createController($name);
+        break;
+
+    default:
+        echo "Unknown command";
+        break;
+}
