@@ -6,14 +6,14 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 $command = $argv[1];
 
-$publicDir = __DIR__ . '/public';
+$router = __DIR__ . '/server/router/Router.php';
 
 switch ($command) {
     case 'start':
         echo "Starting...";
         exec("composer dump-autoload");
         echo "\033c";
-        exec("php -S $argv[2] -t \"$publicDir\"");
+        exec("php -S $argv[2] \"$router\"");
         break;
 
     case 'create:repository':

@@ -45,22 +45,15 @@
         }
 
         public static function on() {
-            $request_uri = explode('/', trim($_SERVER['REQUEST_URI'], '/'));
-            $script_name = explode('/', trim($_SERVER['SCRIPT_NAME'], '/'));
-            $parts = array_diff($request_uri, $script_name);
-
-            if (empty($parts)) {
+            $request_uri = explode('?', $_SERVER['REQUEST_URI'], 2)[0]; // Obtenez l'URI sans la chaîne de requête
+            $request_uri = trim($request_uri, '/'); // Supprimez les slashes de début et de fin
+            
+            if (empty($request_uri)) {
                 Router::$path = '/';
-                Router::redirect(Router::$path);
-                return;
+            } else {
+                Router::$path = '/' . $request_uri;
             }
-
-            Router::$path = implode('/', $parts);
-
-            if (($position = strpos(Router::$path,'?')) !== false) {
-                Router::$path = substr(Router::$path, 0, $position);
-            }
-
+            
             Router::redirect(Router::$path);
         }
 
@@ -75,9 +68,10 @@
 
             if ($_SERVER['REQUEST_METHOD'] === 'GET')
             {
-                if (array_key_exists("/$path", Router::$getPaths))
+                if (array_key_exists("$path", Router::$getPaths))
                 {
-                    $redirect = Router::$getPaths["/$path"];
+
+                    $redirect = Router::$getPaths["$path"];
 
                     self::go($redirect);
                     return;
@@ -88,9 +82,9 @@
 
             if ($_SERVER['REQUEST_METHOD'] === 'POST')
             {
-                if (array_key_exists("/$path", Router::$postPaths))
+                if (array_key_exists("$path", Router::$postPaths))
                 {
-                    $redirect = Router::$postPaths["/$path"];
+                    $redirect = Router::$postPaths["$path"];
 
                     self::go($redirect);
                     return;
@@ -101,9 +95,9 @@
 
             if ($_SERVER['REQUEST_METHOD'] === 'PUT')
             {
-                if (array_key_exists("/$path", Router::$putPaths))
+                if (array_key_exists("$path", Router::$putPaths))
                 {
-                    $redirect = Router::$putPaths["/$path"];
+                    $redirect = Router::$putPaths["$path"];
 
                     self::go($redirect);
                     return;
@@ -114,9 +108,9 @@
 
             if ($_SERVER['REQUEST_METHOD'] === 'DELETE')
             {
-                if (array_key_exists("/$path", Router::$deletePaths))
+                if (array_key_exists("$path", Router::$deletePaths))
                 {
-                    $redirect = Router::$deletePaths["/$path"];
+                    $redirect = Router::$deletePaths["$path"];
 
                     self::go($redirect);
                     return;
@@ -148,5 +142,50 @@
             include Plateform::transform_path(__DIR__ . "/../../app/Views/404.php");
             return;
         }
+
+        public static function serve_assets() {
+            $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+            $uri = urldecode($uri);
+
+            $parts = explode('.', $uri);
+
+            if (isset($parts[1])) {
+                $extension = $parts[1];
+
+                switch ($extension)
+                {
+                    case 'css':
+                        self::serve_style($uri);
+                        break;
+                    
+                    case 'module':
+                        self::serve_module($uri);
+                        break;
+    
+                    case 'js':
+                        self::serve_script($uri);
+                        break;
+                }
+            }
+
+            include __DIR__ . '/../../public/index.php';
+        }
+
+        private static function serve_style($path) {
+            include __DIR__ . "/../../app/Styles/$path";
+            die();
+        }
+
+        private static function serve_script($path) {
+            include __DIR__ . "/../../app/Javascripts/$path";
+            die();
+        }
+
+        private static function serve_module($path) {
+            include __DIR__ . "/../../app/Views/$path";
+            die();
+        }
     }
+
+    Router::serve_assets();
 ?>
