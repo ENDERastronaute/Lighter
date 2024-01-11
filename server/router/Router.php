@@ -159,7 +159,7 @@
                         break;
                     
                     case 'module':
-                        self::serve_module($uri);
+                        self::serve_module($uri, $parts);
                         break;
     
                     case 'js':
@@ -172,18 +172,31 @@
         }
 
         private static function serve_style($path) {
+            header('Content-Type: text/css; charset=utf-8');
             include __DIR__ . "/../../app/Styles/$path";
             die();
         }
 
         private static function serve_script($path) {
+            header('Content-Type: application/js; charset=utf-8');
             include __DIR__ . "/../../app/Javascripts/$path";
             die();
         }
 
-        private static function serve_module($path) {
-            include __DIR__ . "/../../app/Views/$path";
-            die();
+        private static function serve_module($path, $parts) {
+            if (isset($parts[2])) {
+                switch ($parts[2]) {
+                    case 'css':
+                        header('Content-Type: text/css; charset=utf-8');
+                        break;
+
+                    case 'js':
+                        header('Content-Type: application/js; charset=utf-8');
+                        break;
+                }
+                include __DIR__ . "/../../app/Views/$path";
+                die();
+            }
         }
     }
 

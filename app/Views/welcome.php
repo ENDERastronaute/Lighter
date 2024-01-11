@@ -12,6 +12,6 @@
     <?php component('header') ?>
 
 </body>
-    <script src="/test.module.js"></script>
-    <script src="/test.js"></script>
+    <script src="/index.module.js"></script>
+    <script src="/index.js"></script>
 </html>
