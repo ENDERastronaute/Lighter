@@ -1,3 +1,0 @@
-Route /categories
-Route /games (private)
-Route /games (public)
