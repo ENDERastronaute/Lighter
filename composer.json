@@ -1,5 +1,6 @@
 {
-    "name": "ender/projet",
+    "name": "enderastronaute/lighter",
+    "description": "Light and intuitive PHP framework",
     "require": {
         "twbs/bootstrap": "5.3.2"
     },
