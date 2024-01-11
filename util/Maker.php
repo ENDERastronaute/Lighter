@@ -7,13 +7,13 @@ class Maker
     {
         $name .= "Repository";
 
-        $template_file = fopen(Plateform::transform_path(__DIR__ . '/../server/templates/Repository.txt'), 'r');
+        $template_file = fopen(__DIR__ . '/../server/templates/Repository.txt', 'r');
 
-        $template = fread($template_file, filesize(Plateform::transform_path(__DIR__ . '/../server/templates/Repository.txt')));
+        $template = fread($template_file, filesize(__DIR__ . '/../server/templates/Repository.txt'));
 
         $repository = self::replaceClassnamePlaceholder($template, $name);
 
-        $repository_file = fopen(Plateform::transform_path(__DIR__ . "/../repository/$name.php"), "w");
+        $repository_file = fopen(__DIR__ . "/../repository/$name.php", "w");
 
         fwrite($repository_file, $repository);
 
@@ -24,13 +24,13 @@ class Maker
     {
         $name .= "Controller";
 
-        $template_file = fopen(Plateform::transform_path(__DIR__ . "/../server/templates/Controller.txt"), 'r');
+        $template_file = fopen(__DIR__ . "/../server/templates/Controller.txt", 'r');
 
-        $template = fread($template_file, filesize(Plateform::transform_path(__DIR__ . '/../server/templates/Controller.txt')));
+        $template = fread($template_file, filesize(__DIR__ . '/../server/templates/Controller.txt'));
 
         $controller = self::replaceClassnamePlaceholder($template, $name);
 
-        $controller_file = fopen(Plateform::transform_path(__DIR__ . "/../app/Controllers/$name.php"), 'w');
+        $controller_file = fopen(__DIR__ . "/../app/Controllers/$name.php", 'w');
 
         fwrite($controller_file, $controller);
 
@@ -43,15 +43,15 @@ class Maker
         $repositoryName = ucfirst($name) . "Repository";
         $repoName = ucfirst($name) . "Repo";
 
-        $template_file = fopen(Plateform::transform_path(__DIR__ . "/../server/templates/Resource.txt"), 'r');
+        $template_file = fopen(__DIR__ . "/../server/templates/Resource.txt", 'r');
 
-        $template = fread($template_file, filesize(Plateform::transform_path(__DIR__ . '/../server/templates/Resource.txt')));
+        $template = fread($template_file, filesize(__DIR__ . '/../server/templates/Resource.txt'));
         
         $controller = self::replaceClassnamePlaceholder($template, $controllerName);
         $controller = self::replaceRepositorynamePlaceholder($controller, $repositoryName);
         $controller = self::replaceRepositorynamePlaceholder($controller, $repoName, true);
 
-        $controller_file = fopen(Plateform::transform_path(__DIR__ . "/../app/Controllers/$controllerName.php"), 'w');
+        $controller_file = fopen(__DIR__ . "/../app/Controllers/$controllerName.php", 'w');
 
         fwrite($controller_file, $controller);
 

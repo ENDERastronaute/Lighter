@@ -1,6 +1,5 @@
 <?php
-namespace Util;
-
+namespace Server\Router;
 class Headers {
     public static function getAll() {
         $headers = array();

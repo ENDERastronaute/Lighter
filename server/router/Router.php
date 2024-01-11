@@ -2,11 +2,7 @@
     namespace Server\Router;
 
     use Model\Request;
-    use Util\Headers;
-    use Util\Plateform;
     use Routes\Middleware;
-
-    session_start();
 
     class Router
     {
@@ -45,6 +41,8 @@
         }
 
         public static function on() {
+            self::serve_assets();
+
             $request_uri = explode('?', $_SERVER['REQUEST_URI'], 2)[0]; // Obtenez l'URI sans la chaîne de requête
             $request_uri = trim($request_uri, '/'); // Supprimez les slashes de début et de fin
             
@@ -139,7 +137,7 @@
         }
 
         private static function error_404() {
-            include Plateform::transform_path(__DIR__ . "/../../app/Views/404.php");
+            include __DIR__ . "/../../app/Views/404.php";
             return;
         }
 
@@ -167,8 +165,6 @@
                         break;
                 }
             }
-
-            include __DIR__ . '/../../public/index.php';
         }
 
         private static function serve_style($path) {
@@ -199,6 +195,4 @@
             }
         }
     }
-
-    Router::serve_assets();
 ?>

@@ -6,7 +6,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 $command = $argv[1];
 
-$router = __DIR__ . '/server/router/Router.php';
+$router = __DIR__ . '/public/index.php';
 
 switch ($command) {
     case 'start':

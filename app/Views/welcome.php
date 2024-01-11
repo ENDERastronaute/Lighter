@@ -9,8 +9,7 @@
     <link rel="stylesheet" href="/style.module.css">
 </head>
 <body>
-    <?php component('header') ?>
-
+    
 </body>
     <script src="/index.module.js"></script>
     <script src="/index.js"></script>
